@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact</title>
+    <style>
+        * { box-sizing: border-box; }
+        :root {
+            --bg: #090b13;
+            --panel: rgba(17,24,39,0.9);
+            --line: rgba(148,163,184,0.12);
+            --text: #e5e7eb;
+            --muted: #9aa4b2;
+            --accent: #7dd3fc;
+        }
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background:
+                radial-gradient(circle at top, rgba(125,211,252,0.12), transparent 20%),
+                var(--bg);
+            color: var(--text);
+        }
+        .navbar {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            padding: 18px 16px;
+            background: rgba(255,255,255,0.03);
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            position: sticky; top: 0; z-index: 10;
+        }
+        .navbar a { color: var(--text); text-decoration: none; font-weight:700; padding:8px 14px; border-radius:999px; }
+        .navbar a.active, .navbar a:hover { background: #f2f4f7; color: #111827; }
+        .page { max-width: 1100px; margin: 0 auto; padding: 36px 18px 80px; }
+        .header { text-align:center; margin-bottom: 20px; }
+        .header h1 { margin:0; font-size: clamp(2rem,4vw,3.2rem); letter-spacing:0.06em; }
+        .header p { margin-top:10px; color:var(--muted); }
+
+        .grid { display: grid; grid-template-columns: 1fr 420px; gap: 26px; align-items:start; }
+        .card { background: linear-gradient(180deg, rgba(15,23,42,0.94), rgba(15,23,42,0.82)); border:1px solid var(--line); border-radius:16px; padding:18px; }
+
+        .contact-info h3 { margin: 0 0 8px; }
+        .contact-list { margin:0; padding:0; list-style:none; color:var(--muted); line-height:1.9; }
+        .contact-list a { color: var(--accent); text-decoration:none; }
+
+        label { display:block; color:var(--muted); margin-bottom:6px; font-weight:600; }
+        input[type="text"], textarea { width:100%; padding:10px 12px; border-radius:10px; border:1px solid rgba(255,255,255,0.06); background:rgba(255,255,255,0.02); color:var(--text); resize:vertical; }
+        textarea { min-height:120px; }
+        .btn-row { display:flex; gap:10px; margin-top:10px; }
+        .btn { padding:10px 14px; border-radius:10px; border:none; cursor:pointer; font-weight:700; }
+        .btn.primary { background:var(--accent); color:#072033; }
+        .btn.ghost { background:transparent; border:1px solid rgba(255,255,255,0.08); color:var(--text); }
+
+        @media (max-width:980px) { .grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="Home.html">Home</a>
+        <a href="Skills.html">Skills</a>
+        <a href="Projects.html">Projects</a>
+        <a href="Contact.html" class="active">Contact</a>
+    </div>
+
+    <div class="page">
+        <div class="header">
+            <h1>Contact Me</h1>
+            <p>Send a quick message — open WhatsApp or Gmail with a prefilled message.</p>
+        </div>
+
+        <div class="grid">
+            <div class="card contact-form">
+                <h3>Send Message</h3>
+                <p style="color:var(--muted); margin-top:6px;">Fill a name and messages, then pick WhatsApp or Gmail.</p>
+
+                <div style="margin-top:14px;">
+                    <label for="name">Your name</label>
+                    <input id="name" type="text" placeholder="Your name" />
+                </div>
+
+                <div style="margin-top:12px;">
+                    <label for="waMsg">Message for WhatsApp</label>
+                    <textarea id="waMsg" placeholder="Type a message to send via WhatsApp"></textarea>
+                    <div class="btn-row">
+                        <button class="btn primary" onclick="sendWhatsApp()">Send via WhatsApp</button>
+                        <button class="btn ghost" onclick="copyPhone()">Copy Phone</button>
+                    </div>
+                </div>
+
+                <div style="margin-top:14px;">
+                    <label for="gmMsg">Message for Gmail</label>
+                    <textarea id="gmMsg" placeholder="Type a message to send by Gmail"></textarea>
+                    <div class="btn-row">
+                        <button class="btn primary" onclick="openGmail()">Open Gmail Compose</button>
+                        <button class="btn ghost" onclick="openMailto()">Open Mail Client</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card contact-info">
+                <h3>Contact Info</h3>
+                <ul class="contact-list">
+                    <li><strong>Phone:</strong> <a href="tel:+9779766639123">+977 9766639123</a></li>
+                    <li><strong>WhatsApp:</strong> <a href="#" onclick="openWhatsAppChat()">Chat on WhatsApp</a></li>
+                    <li><strong>Gmail:</strong> <a href="mailto:regmisaksham773@gmail.com">regmisaksham773@gmail.com</a></li>
+                    <li><strong>Instagram:</strong> <a href="https://www.instagram.com/saksham00x/" target="_blank" rel="noopener">@saksham00x</a></li>
+                </ul>
+
+                <div style="margin-top:18px;">
+                    <h4 style="margin:0 0 8px;">Quick Actions</h4>
+                    <div class="btn-row">
+                        <button class="btn primary" onclick="openWhatsAppChat()">Open WhatsApp</button>
+                        <button class="btn ghost" onclick="window.open('https://www.instagram.com/saksham00x/','_blank','noopener')">Open Instagram</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const phone = '9779766639123'; // without + for wa.me
+        const gmail = 'regmisaksham773@gmail.com';
+
+        function sendWhatsApp(){
+            const name = document.getElementById('name').value.trim();
+            const msg = document.getElementById('waMsg').value.trim();
+            if(!msg){ alert('Please enter a message for WhatsApp.'); return; }
+            const full = (name ? ('Name: '+name+'\n') : '') + msg;
+            const url = 'https://wa.me/' + phone + '?text=' + encodeURIComponent(full);
+            window.open(url, '_blank', 'noopener');
+        }
+
+        function openWhatsAppChat(){
+            const url = 'https://wa.me/' + phone;
+            window.open(url, '_blank', 'noopener');
+        }
+
+        function openGmail(){
+            const subject = 'Contact from Website';
+            const name = document.getElementById('name').value.trim();
+            const body = (name ? ('Name: '+name+'\n\n') : '') + document.getElementById('gmMsg').value.trim();
+            if(!body){ alert('Please enter a message for Gmail.'); return; }
+            const url = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(gmail)
+                + '&su=' + encodeURIComponent(subject)
+                + '&body=' + encodeURIComponent(body);
+            window.open(url, '_blank', 'noopener');
+        }
+
+        function openMailto(){
+            const subject = 'Contact from Website';
+            const name = document.getElementById('name').value.trim();
+            const body = (name ? ('Name: '+name+'\n\n') : '') + document.getElementById('gmMsg').value.trim();
+            const mailto = 'mailto:' + encodeURIComponent(gmail) + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+            window.location.href = mailto;
+        }
+
+        function copyPhone(){
+            navigator.clipboard && navigator.clipboard.writeText('+977 9766639123').then(()=>{
+                alert('Phone number copied to clipboard');
+            }).catch(()=>{ alert('Copy not supported'); });
+        }
+    </script>
+</body>
+</html>
