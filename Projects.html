@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #090b13;
+            --bg-2: #111827;
+            --panel: rgba(17, 24, 39, 0.9);
+            --panel-2: rgba(15, 23, 42, 0.8);
+            --line: rgba(148, 163, 184, 0.24);
+            --text: #e5e7eb;
+            --muted: #cbd5e1;
+            --soft: #94a3b8;
+            --accent: #7dd3fc;
+            --accent-2: #a78bfa;
+            --accent-3: #34d399;
+            --shadow: rgba(125, 211, 252, 0.25);
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background:
+                radial-gradient(circle at top, rgba(125, 211, 252, 0.18), transparent 30%),
+                radial-gradient(circle at bottom right, rgba(167, 139, 250, 0.12), transparent 28%),
+                var(--bg);
+            color: var(--text);
+        }
+
+        .navbar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            padding: 22px 20px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 0 16px rgba(255,255,255,0.06), 0 10px 25px rgba(0,0,0,0.5);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .navbar a {
+            color: #e5e7eb;
+            text-decoration: none;
+            font-weight: 700;
+            padding: 10px 18px;
+            border-radius: 999px;
+            transition: 0.2s ease;
+        }
+
+        .navbar a:hover,
+        .navbar a.active {
+            background: #f2f4f7;
+            color: #111827;
+            box-shadow: 0 0 12px rgba(255,255,255,0.25);
+        }
+
+        .page {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px 65px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: clamp(2.3rem, 4vw, 4rem);
+            letter-spacing: 0.08em;
+            color: #f8fafc;
+            text-transform: uppercase;
+            text-shadow: 0 0 20px rgba(125, 211, 252, 0.2);
+        }
+
+        .header p {
+            margin-top: 14px;
+            color: var(--muted);
+            font-size: 1.08rem;
+            letter-spacing: 0.04em;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 30px;
+        }
+
+        .project-card {
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.82));
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            padding: 24px 22px;
+            box-shadow: 0 0 18px rgba(15, 23, 42, 0.5), 0 0 30px rgba(125, 211, 252, 0.08);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+            min-height: 290px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .project-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(125, 211, 252, 0.4);
+            box-shadow: 0 0 22px rgba(125, 211, 252, 0.14), 0 16px 35px rgba(0,0,0,0.28);
+        }
+
+        .project-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 14px;
+            margin-bottom: 16px;
+        }
+
+        .project-icon {
+            width: 54px;
+            height: 54px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(125, 211, 252, 0.12);
+            border: 1px solid rgba(125, 211, 252, 0.28);
+            font-size: 1.8rem;
+            box-shadow: inset 0 0 14px rgba(125, 211, 252, 0.08);
+        }
+
+        .project-badge {
+            display: inline-block;
+            padding: 7px 12px;
+            font-size: 0.72rem;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            border-radius: 999px;
+            background: rgba(52, 211, 153, 0.12);
+            border: 1px solid rgba(52, 211, 153, 0.35);
+            color: #d1fae5;
+            font-weight: 700;
+        }
+
+        .project-card h2 {
+            margin: 0 0 12px;
+            font-size: clamp(1.45rem, 2vw, 2rem);
+            color: #f8fafc;
+        }
+
+        .project-card p {
+            margin: 0 0 16px;
+            color: var(--muted);
+            line-height: 1.8;
+            font-size: 0.98rem;
+        }
+
+        .tag-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 10px 0 18px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: rgba(167, 139, 250, 0.12);
+            border: 1px solid rgba(167, 139, 250, 0.3);
+            color: #f1f5f9;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .project-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: auto;
+        }
+
+        .project-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 18px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .project-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .primary-btn {
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            color: #0b1220;
+            box-shadow: 0 10px 20px rgba(125, 211, 252, 0.2);
+        }
+
+        .secondary-btn {
+            background: rgba(255,255,255,0.04);
+            color: var(--text);
+            border-color: rgba(255,255,255,0.12);
+        }
+
+        .coming-soon {
+            background: rgba(255,255,255,0.03);
+        }
+
+        .coming-soon .project-badge {
+            background: rgba(167, 139, 250, 0.12);
+            border-color: rgba(167, 139, 250, 0.35);
+            color: #e9d5ff;
+        }
+
+        @media (max-width: 820px) {
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .page {
+                padding-left: 14px;
+                padding-right: 14px;
+            }
+
+            .project-card {
+                padding: 20px 18px;
+            }
+
+            .project-top {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="Home.html">Home</a>
+        <a href="Skills.html">Skills</a>
+        <a href="Projects.html" class="active">Projects</a>
+        <a href="Contact.html">Contact</a>
+    </div>
+
+    <div class="page">
+        <div class="header">
+            <h1>Projects</h1>
+            <p>Some of the work I’ve built and ideas I’m actively learning from.</p>
+        </div>
+
+        <div class="project-grid">
+            <div class="project-card">
+                <div>
+                    <div class="project-top">
+                        <div class="project-icon">🔐</div>
+                        <span class="project-badge">Python</span>
+                    </div>
+                    <h2>Password Strength Checker</h2>
+                    <p>This project checks whether a password includes uppercase/lowercase letters, numbers, special characters, and enough length. It then rates the password from “very weak” to “very strong” based on the rules it passes.</p>
+                    <div class="tag-row">
+                        <span class="tag">Logic</span>
+                        <span class="tag">Validation</span>
+                        <span class="tag">Security</span>
+                    </div>
+                </div>
+                <div class="project-actions">
+                    <a class="project-btn primary-btn" href="https://github.com/Sxam-10/Password-strength-checker" target="_blank" rel="noreferrer">View on GitHub</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div>
+                    <div class="project-top">
+                        <div class="project-icon">🚗</div>
+                        <span class="project-badge">IoT</span>
+                    </div>
+                    <h2>IoT RC Car</h2>
+                    <p>A simple Bluetooth-controlled RC car built with Arduino UNO, L298N motor driver, and HC-05 module. The car is controlled using a mobile app, and it was created as a practical team project combining hardware and software.</p>
+                    <div class="tag-row">
+                        <span class="tag">Arduino</span>
+                        <span class="tag">Bluetooth</span>
+                        <span class="tag">Hardware</span>
+                    </div>
+                </div>
+                <div class="project-actions">
+                    <a class="project-btn secondary-btn" href="#">Project Details</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div>
+                    <div class="project-top">
+                        <div class="project-icon">🌐</div>
+                        <span class="project-badge">Web</span>
+                    </div>
+                    <h2>Portfolio Website</h2>
+                    <p>This personal portfolio website showcases my projects, skills, and goals. It is built using HTML, CSS, and JavaScript and is designed to look clean, modern, and responsive across different screen sizes.</p>
+                    <div class="tag-row">
+                        <span class="tag">HTML</span>
+                        <span class="tag">CSS</span>
+                        <span class="tag">JavaScript</span>
+                    </div>
+                </div>
+                <div class="project-actions">
+                    <a class="project-btn secondary-btn" href="Home.html">Open Portfolio</a>
+                </div>
+            </div>
+
+            <div class="project-card coming-soon">
+                <div>
+                    <div class="project-top">
+                        <div class="project-icon">✨</div>
+                        <span class="project-badge">Coming Soon</span>
+                    </div>
+                    <h2>More Projects Ahead</h2>
+                    <p>I am currently working on more projects and will be adding them here soon. This portfolio is growing as I continue learning and building meaningful work in software development.</p>
+                    <div class="tag-row">
+                        <span class="tag">Learning</span>
+                        <span class="tag">Growth</span>
+                        <span class="tag">Building</span>
+                    </div>
+                </div>
+                <div class="project-actions">
+                    <a class="project-btn secondary-btn" href="Contact.html">Stay Updated</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
